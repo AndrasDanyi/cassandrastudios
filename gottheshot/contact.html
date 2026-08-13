@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GotTheShot — Contact Us · Cassandra Studios</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fafafa;
+            color: #333;
+            padding: 3rem 1.5rem;
+            line-height: 1.7;
+        }
+        main {
+            max-width: 560px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+        .intro {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #444;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        input,
+        textarea {
+            width: 100%;
+            font-family: inherit;
+            font-size: 1rem;
+            color: #333;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 0.7rem 0.85rem;
+            transition: border-color 0.15s ease;
+        }
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #888;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+        button {
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background: #333;
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        button:hover {
+            background: #000;
+        }
+        button:disabled {
+            background: #999;
+            cursor: default;
+        }
+        .status {
+            font-size: 0.95rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        .status.success {
+            display: block;
+            color: #1a7f37;
+        }
+        .status.error {
+            display: block;
+            color: #b3261e;
+        }
+        .fallback {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        .fallback a {
+            color: #333;
+        }
+        /* Honeypot — hidden from real users */
+        .hp {
+            position: absolute;
+            left: -9999px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Contact Us</h1>
+        <p class="intro">Questions, feedback, or issues with GotTheShot? Send us a message and we'll get back to you.</p>
+
+        <form id="contact-form">
+            <!-- Web3Forms: replace with the access key emailed to hello@cassandrastudios.com -->
+            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+            <input type="hidden" name="subject" value="New GotTheShot contact message">
+            <input type="hidden" name="from_name" value="GotTheShot Contact Form">
+
+            <!-- Honeypot spam trap -->
+            <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+
+            <button type="submit" id="submit-btn">Send</button>
+            <p class="status" id="status"></p>
+        </form>
+
+        <div class="fallback">
+            Prefer email? Reach us directly at
+            <a href="mailto:hello@cassandrastudios.com">hello@cassandrastudios.com</a>.
+        </div>
+    </main>
+
+    <script>
+        const form = document.getElementById('contact-form');
+        const statusEl = document.getElementById('status');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending…';
+            statusEl.className = 'status';
+
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' },
+                    body: new FormData(form)
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    statusEl.textContent = 'Thanks! Your message has been sent.';
+                    statusEl.className = 'status success';
+                    form.reset();
+                } else {
+                    statusEl.textContent = data.message || 'Something went wrong. Please email us directly.';
+                    statusEl.className = 'status error';
+                }
+            } catch (err) {
+                statusEl.textContent = 'Network error. Please email us at hello@cassandrastudios.com.';
+                statusEl.className = 'status error';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send';
+            }
+        });
+    </script>
+</body>
+</html>
