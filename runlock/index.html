@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RunLock — Run to unlock your apps</title>
+    <meta name="description" content="RunLock keeps the apps that eat your time locked until you earn your way back in. Every minute you move unlocks a minute of app time. Private by design — your data never leaves your device.">
+
+    <meta property="og:title" content="RunLock — Run to unlock your apps">
+    <meta property="og:description" content="Your distracting apps stay locked until you move. Every minute of running or any workout unlocks a minute of app time, synced automatically from Apple Health.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cassandrastudios.com/runlock">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --ink: #1a1a1a;
+            --muted: #666;
+            --faint: #888;
+            --line: #ececec;
+            --accent: #e8552d;
+            --bg: #fafafa;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Hero */
+        header {
+            text-align: center;
+            padding: 5.5rem 1.5rem 4rem;
+        }
+        .mark {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: -0.01em;
+            margin-bottom: 2.75rem;
+            color: var(--ink);
+        }
+        .mark .dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: inline-block;
+        }
+        h1 {
+            font-size: clamp(2.3rem, 6vw, 3.4rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 1.1rem;
+        }
+        .tagline {
+            font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+            color: var(--muted);
+            max-width: 34ch;
+            margin: 0 auto 2.25rem;
+        }
+        .badge {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--faint);
+            border: 1px solid var(--line);
+            background: #fff;
+            border-radius: 999px;
+            padding: 0.5rem 1.1rem;
+        }
+        .badge strong {
+            color: var(--ink);
+        }
+
+        /* Sections */
+        section {
+            padding: 3.25rem 0;
+            border-top: 1px solid var(--line);
+        }
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.75rem;
+            text-align: center;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+        }
+        .step {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 1.5rem;
+        }
+        .step .n {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.9rem;
+        }
+        .step h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+        .step p {
+            font-size: 0.95rem;
+            color: var(--muted);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.1rem 2rem;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .feature {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+        .feature .ico {
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        .feature h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.15rem;
+        }
+        .feature p {
+            font-size: 0.92rem;
+            color: var(--muted);
+        }
+
+        /* Pricing */
+        .price-card {
+            max-width: 420px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .price-card .kicker {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+        .price-card .plans {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.25rem 0;
+        }
+        .price-card .plan .amt {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .price-card .plan .per {
+            font-size: 0.85rem;
+            color: var(--faint);
+        }
+        .price-card .trial {
+            font-size: 0.95rem;
+            color: var(--muted);
+        }
+        .price-note {
+            font-size: 0.8rem;
+            color: var(--faint);
+            max-width: 46ch;
+            margin: 1rem auto 0;
+        }
+
+        .privacy-blurb {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--muted);
+        }
+        .privacy-blurb strong {
+            color: var(--ink);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 2.75rem 1.5rem 3.5rem;
+            text-align: center;
+            color: var(--faint);
+            font-size: 0.88rem;
+            line-height: 1.9;
+        }
+        footer nav {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        footer a {
+            color: var(--ink);
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .legal {
+            color: var(--faint);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="wrap">
+            <div class="mark"><span class="dot"></span> RunLock</div>
+            <h1>Run to unlock your apps.</h1>
+            <p class="tagline">Earn your app time by moving. The apps that eat your day stay locked until you do.</p>
+            <span class="badge"><strong>Coming soon</strong> &nbsp;to the App&nbsp;Store</span>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <section id="how">
+            <h2>How it works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="n">1</div>
+                    <h3>Pick the apps to lock</h3>
+                    <p>TikTok, Instagram, YouTube — whatever pulls you in. Your choice stays private on your device.</p>
+                </div>
+                <div class="step">
+                    <div class="n">2</div>
+                    <h3>Work out</h3>
+                    <p>Runs, walks, rides, strength, yoga — every workout counts, synced automatically from Apple Health.</p>
+                </div>
+                <div class="step">
+                    <div class="n">3</div>
+                    <h3>Earn your minutes</h3>
+                    <p>Every minute you move unlocks a minute of app time. No camera, no manual logging.</p>
+                </div>
+                <div class="step">
+                    <div class="n">4</div>
+                    <h3>Unlock &amp; re-lock</h3>
+                    <p>Tap a locked app and spend earned minutes to unlock. It re-locks when your time's up.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="features">
+            <h2>Fair by design</h2>
+            <div class="features">
+                <div class="feature">
+                    <span class="ico">🏃</span>
+                    <div>
+                        <h3>Every activity earns</h3>
+                        <p>Workouts from Garmin, Strava, Apple Watch, Coros and Polar all sync through Apple Health.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <span class="ico">🎁</span>
+                    <div>
+                        <h3>A daily free allowance</h3>
+                        <p>A small amount of free app time each day, so you're never fully locked out.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <span class="ico">🚫</span>
+                    <div>
+                        <h3>No cheating</h3>
+                        <p>Manually entered workouts don't count — you have to actually move.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <span class="ico">🎛️</span>
+                    <div>
+                        <h3>Your rules</h3>
+                        <p>Set your own earning rate and daily allowance to match your goals.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="privacy">
+            <h2>Private by design</h2>
+            <p class="privacy-blurb">
+                <strong>No account. No backend.</strong> Your workouts, your balance, and the apps you lock
+                never leave your device. We read workout data from Apple Health only to calculate your earned
+                minutes — read-only, on-device, never uploaded, never sold.
+                Read our <a href="/runlock/privacy">Privacy&nbsp;Policy</a>.
+            </p>
+        </section>
+
+        <section id="pricing">
+            <h2>RunLock Pro</h2>
+            <div class="price-card">
+                <div class="kicker">3-day free trial</div>
+                <div class="plans">
+                    <div class="plan">
+                        <div class="amt">$5.99</div>
+                        <div class="per">/ month</div>
+                    </div>
+                    <div class="plan">
+                        <div class="amt">$29.99</div>
+                        <div class="per">/ year</div>
+                    </div>
+                </div>
+                <p class="trial">Earning from workouts is unlocked with Pro. The daily free allowance is always free.</p>
+                <p class="price-note">
+                    Subscriptions auto-renew unless cancelled at least 24 hours before the end of the period.
+                    Manage or cancel anytime in your Apple Account settings. See
+                    <a href="/runlock/terms">Terms of Use</a>.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <nav>
+            <a href="/runlock/privacy">Privacy Policy</a>
+            <a href="/runlock/terms">Terms of Use</a>
+            <a href="/runlock/contact">Contact &amp; Support</a>
+            <a href="https://cassandrastudios.com">Cassandra Studios</a>
+        </nav>
+        <div class="legal">
+            © 2026 Cassandra Studios EOOD · Sofia, Bulgaria · VAT BG206817882<br>
+            <a href="mailto:hello@cassandrastudios.com">hello@cassandrastudios.com</a>
+        </div>
+    </footer>
+</body>
+</html>
