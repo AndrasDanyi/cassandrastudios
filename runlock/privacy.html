@@ -101,7 +101,7 @@
 
         <p class="intro">This Privacy Policy explains how <strong>Cassandra Studios EOOD</strong> ("we", "us", "our") handles information in connection with the <strong>RunLock</strong> mobile application (the "App").</p>
 
-        <p>RunLock locks the apps you choose until you earn time by working out. We built it to be <strong>private by design: there are no accounts, we operate no servers of our own, and none of your data (your health data, the apps you lock, or your balance) is uploaded anywhere.</strong> Everything happens on your device.</p>
+        <p>RunLock locks the apps you choose until you earn time by working out. We built it to be <strong>private by design: there are no accounts and we operate no servers of our own, so none of your data ever reaches us.</strong> Everything happens on your device — and, if you use iCloud, your balance, goals and settings also back up to your own private iCloud so they restore when you reinstall (see below).</p>
 
         <hr>
 
@@ -110,7 +110,8 @@
             <ul>
                 <li>❤️ <strong>Your Health data stays on your device.</strong> We read workout duration from Apple Health only to calculate your earned minutes, on-device. We never transmit or store it.</li>
                 <li>🔒 <strong>The apps you choose to lock stay private.</strong> Apple's Screen Time framework gives us only opaque tokens, so we can't see which specific apps you selected, and that selection never leaves your device.</li>
-                <li>☁️ <strong>We have no backend.</strong> No accounts, no sign-in, no servers that receive or store your information.</li>
+                <li>☁️ <strong>We have no backend.</strong> No accounts, no sign-in, no servers of ours that receive or store your information.</li>
+                <li>🔄 <strong>Optional iCloud backup.</strong> If you're signed into iCloud, your balance, goals, history and settings back up to <strong>your own private iCloud</strong> so a reinstall or a new phone restores them. That's Apple's iCloud (your account) — not our servers, and we can't see it. Clear both copies anytime with <strong>Reset all data</strong> in Settings. Your Health data and the specific apps you lock are never part of this backup.</li>
                 <li>🚫 <strong>No ads, no tracking, no data brokers, no selling data.</strong> We include no analytics or advertising SDKs.</li>
                 <li>💳 The only personal data involved is what Apple needs to process your optional <strong>auto-renewable subscription</strong>, handled by Apple on the App Store.</li>
             </ul>
@@ -138,7 +139,7 @@
         <p>To lock and unlock apps, the App uses Apple's <strong>Family Controls / Screen Time frameworks</strong>. When you choose which apps and categories to lock, iOS returns <strong>opaque tokens</strong> rather than the identities of those apps. This means <strong>we cannot see which specific apps you selected</strong>, and your selection is stored <strong>only on your device</strong> (in a private, app-group container shared with the App's own Screen Time extensions). Device and usage information obtained through the Family Controls framework is used solely to provide the App's locking and unlocking features; it is never shared, never used for advertising or advertising measurement, and never shared with a data broker.</p>
 
         <h3>c) Your balance and settings</h3>
-        <p>Your earned-minutes balance, ledger, and preferences (earning rate and which apps you lock) are stored <strong>locally on your device only</strong>. They are not synced to us.</p>
+        <p>Your earned-minutes balance, ledger, and preferences (such as your earning rate) are stored <strong>locally on your device</strong> and, if you are signed into iCloud, backed up to <strong>your own private iCloud</strong> (via Apple's iCloud key-value storage) so they restore when you reinstall or switch phones. This backup is between your device and <strong>your</strong> iCloud account — it is <strong>never synced to us</strong>; we have no servers and cannot see your iCloud. The specific apps you lock are <strong>not</strong> part of this backup. You can erase both the on-device and iCloud copies at any time with <strong>Reset all data</strong> in the app's Settings.</p>
 
         <h3>d) Purchase information (subscription)</h3>
         <p>If you start the optional <strong>RunLock Pro</strong> subscription, the purchase and any free trial are processed by <strong>Apple</strong> through the App Store. Payment is charged to your Apple Account. The App uses Apple's <strong>StoreKit</strong> to check whether your subscription is active; this happens between your device and Apple. We do not operate our own payment servers and do not receive your name, email, or payment card details. We may see Apple-provided, aggregated App Store sales and subscription reports that are not linked to your identity.</p>
@@ -182,12 +183,12 @@
         <h2>7. Data retention</h2>
         <ul>
             <li><strong>Health data</strong> is not retained by us at all; it is read on-device as needed and the computed result (your balance) is what the App keeps locally.</li>
-            <li><strong>Your balance, ledger, settings, and app selections</strong> remain on your device until you change them, reset the App, or uninstall it. Uninstalling the App removes this local data.</li>
+            <li><strong>Your balance, ledger, settings, and app selections</strong> remain on your device until you change them, reset the App, or uninstall it. Uninstalling removes this local data; if iCloud backup is on, a copy of your balance, goals and settings remains in your own iCloud (so a reinstall restores it) until you use <strong>Reset all data</strong>.</li>
             <li><strong>Subscription records</strong> are retained by Apple according to its own policies for as long as needed to provide and support your purchase.</li>
         </ul>
 
         <h2>8. Security</h2>
-        <p>Because your Health data, app selections, and balance stay on your device and we operate no servers, there is no central store of your information for anyone to breach. Your device's own protections (passcode, encryption, and app sandboxing) safeguard locally stored data. Subscription data is handled over encrypted connections by Apple.</p>
+        <p>Because your Health data, app selections, and balance stay on your device and we operate no servers, there is no central store of your information for us or anyone to breach. Your device's own protections (passcode, encryption, and app sandboxing) safeguard locally stored data. The optional iCloud backup of your balance, goals and settings is stored in your own iCloud account and secured by Apple. Subscription data is handled over encrypted connections by Apple.</p>
 
         <h2>9. Children's privacy</h2>
         <p>The App is not directed to children under 13 (or the equivalent minimum age in your country), and we do not knowingly collect personal information from them.</p>
