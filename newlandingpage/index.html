@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cassandra Studios — From idea to a working product in under a month</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --bg: #fafafa;
+            --surface: #fff;
+            --ink: #1f2024;
+            --muted: #6b6f76;
+            --faint: #9499a0;
+            --line: #e8e8ea;
+            --dark: #1f2024;
+            --accent: #1f2024;
+            --radius: 10px;
+            --max: 960px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: inherit; }
+        .wrap {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        .eyebrow {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--faint);
+            margin-bottom: 0.9rem;
+        }
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.6rem;
+        }
+        .section-intro {
+            color: var(--muted);
+            max-width: 640px;
+            margin-bottom: 2.25rem;
+        }
+        section {
+            padding: 4.5rem 0;
+            border-top: 1px solid var(--line);
+        }
+
+        /* ---- Buttons ---- */
+        .btn {
+            display: inline-block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 0.72rem 1.3rem;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+            white-space: nowrap;
+        }
+        .btn-primary {
+            background: var(--dark);
+            color: #fff;
+        }
+        .btn-primary:hover { background: #000; }
+        .btn-ghost {
+            background: transparent;
+            color: var(--ink);
+            border-color: #d6d6d9;
+        }
+        .btn-ghost:hover { border-color: var(--ink); }
+
+        /* ---- Header ---- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(250, 250, 250, 0.85);
+            backdrop-filter: saturate(180%) blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+        .brand {
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            text-decoration: none;
+            font-size: 1.05rem;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.6rem;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 0.92rem;
+            transition: color 0.15s ease;
+        }
+        .nav-links a:hover { color: var(--ink); }
+        .nav-cta { display: flex; align-items: center; gap: 1.2rem; }
+        @media (max-width: 720px) {
+            .nav-links { display: none; }
+        }
+
+        /* ---- Hero ---- */
+        .hero { padding: 5rem 0 4rem; border-top: none; }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            line-height: 1.08;
+            max-width: 760px;
+            margin-bottom: 1.25rem;
+        }
+        .hero p.lead {
+            font-size: 1.18rem;
+            color: var(--muted);
+            max-width: 620px;
+            margin-bottom: 2rem;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .hero-meta {
+            font-size: 0.9rem;
+            color: var(--faint);
+        }
+        .hero-meta span { white-space: nowrap; }
+        .hero-media {
+            margin-top: 3rem;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--faint);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 1.5rem;
+        }
+        @media (max-width: 620px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero p.lead { font-size: 1.05rem; }
+        }
+
+        /* ---- Trust strip ---- */
+        .trust { padding: 2.5rem 0; background: var(--surface); }
+        .trust .wrap { display: flex; flex-direction: column; gap: 1.25rem; }
+        .trust-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--faint);
+        }
+        .trust-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.5rem;
+            align-items: center;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+        .trust-items .chip {
+            border: 1px dashed #cfcfd3;
+            border-radius: 999px;
+            padding: 0.35rem 0.9rem;
+            color: var(--faint);
+        }
+
+        /* ---- Work ---- */
+        .work-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+        .case {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 1.75rem;
+        }
+        .case h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+        .case dl {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 0.55rem 1rem;
+            font-size: 0.95rem;
+        }
+        .case dt {
+            color: var(--faint);
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding-top: 0.1rem;
+        }
+        .case dd { color: var(--ink); }
+        .case .meta {
+            margin-top: 1.1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--line);
+            font-size: 0.88rem;
+            color: var(--muted);
+        }
+        @media (max-width: 520px) {
+            .case dl { grid-template-columns: 1fr; gap: 0.15rem 0; }
+            .case dt { margin-top: 0.7rem; }
+        }
+
+        /* ---- Offer ---- */
+        .offer-card {
+            background: var(--dark);
+            color: #fff;
+            border-radius: 16px;
+            padding: 2.5rem;
+        }
+        .offer-card .eyebrow { color: rgba(255,255,255,0.55); }
+        .offer-card h2 { color: #fff; }
+        .offer-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .offer-price {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .offer-card p.desc { color: rgba(255,255,255,0.72); margin-bottom: 1.5rem; max-width: 560px; }
+        .offer-list { list-style: none; display: grid; gap: 0.7rem; margin-bottom: 1.75rem; }
+        .offer-list li {
+            position: relative;
+            padding-left: 1.6rem;
+            color: rgba(255,255,255,0.9);
+            font-size: 0.97rem;
+        }
+        .offer-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.55em;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.85);
+        }
+        .offer-fine {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.55);
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(255,255,255,0.15);
+        }
+        .offer-card .btn-primary { background: #fff; color: var(--dark); margin-bottom: 1.25rem; }
+        .offer-card .btn-primary:hover { background: #f0f0f0; }
+
+        /* ---- Process ---- */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            counter-reset: step;
+        }
+        .step {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 1.75rem;
+        }
+        .step .num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--dark);
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .step h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.35rem; }
+        .step p { font-size: 0.92rem; color: var(--muted); }
+        @media (max-width: 720px) { .steps { grid-template-columns: 1fr; } }
+
+        /* ---- Why ---- */
+        .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+        .why h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.35rem; }
+        .why p { font-size: 0.92rem; color: var(--muted); }
+        @media (max-width: 720px) { .why-grid { grid-template-columns: 1fr; } }
+
+        /* ---- About + testimonial ---- */
+        .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2rem; align-items: start; }
+        .about p { color: var(--muted); margin-bottom: 1rem; }
+        .about p:last-child { margin-bottom: 0; }
+        blockquote {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 1.75rem;
+            font-size: 1.02rem;
+        }
+        blockquote p { margin-bottom: 1rem; }
+        blockquote footer { font-size: 0.88rem; color: var(--faint); }
+        @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; } }
+
+        /* ---- FAQ ---- */
+        .faq details {
+            border-bottom: 1px solid var(--line);
+            padding: 1.1rem 0;
+        }
+        .faq summary {
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.02rem;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        .faq summary::-webkit-details-marker { display: none; }
+        .faq summary::after {
+            content: "+";
+            color: var(--faint);
+            font-weight: 400;
+            font-size: 1.3rem;
+            line-height: 1;
+        }
+        .faq details[open] summary::after { content: "–"; }
+        .faq p { color: var(--muted); margin-top: 0.7rem; font-size: 0.96rem; }
+
+        /* ---- Final CTA ---- */
+        .final { text-align: center; }
+        .final h2 { font-size: 2rem; max-width: 620px; margin: 0 auto 0.75rem; }
+        .final p { color: var(--muted); max-width: 540px; margin: 0 auto 1.75rem; }
+
+        /* ---- Footer ---- */
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 2.5rem 0;
+            font-size: 0.88rem;
+            color: var(--faint);
+        }
+        footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
+        footer a { color: var(--muted); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .placeholder-note {
+            background: #fff8e6;
+            border: 1px solid #f0e2b8;
+            color: #7a5c00;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            padding: 0.6rem 0.9rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ HEADER ============ -->
+    <header>
+        <div class="wrap nav">
+            <a href="#top" class="brand">Cassandra Studios</a>
+            <ul class="nav-links">
+                <li><a href="#work">Work</a></li>
+                <li><a href="#process">Process</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <div class="nav-cta">
+                <a href="#contact" class="btn btn-primary">Discuss your project</a>
+            </div>
+        </div>
+    </header>
+
+    <main id="top">
+
+        <!-- ============ HERO ============ -->
+        <section class="hero">
+            <div class="wrap">
+                <div class="placeholder-note">
+                    Draft landing page for review — placeholders marked with [ brackets ] need your real content. This page will be removed before launch.
+                </div>
+                <h1>From idea to a working product in under a month.</h1>
+                <p class="lead">
+                    I help founders turn a clear problem into a focused web app they can put in
+                    front of real users—with scope, timeline, and price agreed upfront.
+                </p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn btn-primary">Discuss your project</a>
+                    <a href="#work" class="btn btn-ghost">See selected work</a>
+                </div>
+                <p class="hero-meta">
+                    <span>Fixed-scope projects from $3,000</span> ·
+                    <span>You own the code</span> ·
+                    <span>No long-term contract</span>
+                </p>
+                <div class="hero-media">
+                    [ Screenshot or short walkthrough of a real product you've built ]
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ TRUST STRIP ============ -->
+        <div class="trust">
+            <div class="wrap">
+                <p class="trust-label">Proof</p>
+                <div class="trust-items">
+                    <span class="chip">[ Shipped product ]</span>
+                    <span class="chip">[ Relevant experience ]</span>
+                    <span class="chip">[ Client name — with permission ]</span>
+                    <span class="chip">[ Short testimonial ]</span>
+                    <span class="chip">[ Self-initiated project — if early ]</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ SELECTED WORK ============ -->
+        <section id="work">
+            <div class="wrap">
+                <p class="eyebrow">Selected work</p>
+                <h2>A few things I've built.</h2>
+                <p class="section-intro">
+                    Real problems, real builds, real outcomes. Replace the placeholder figures
+                    with results you can substantiate—don't invent metrics.
+                </p>
+
+                <div class="work-grid">
+                    <article class="case">
+                        <h3>A booking platform for independent coaches</h3>
+                        <dl>
+                            <dt>Problem</dt>
+                            <dd>Scheduling ran over email and spreadsheets, with constant back-and-forth and missed bookings.</dd>
+                            <dt>Build</dt>
+                            <dd>A client booking flow and an admin dashboard to manage availability, clients, and sessions.</dd>
+                            <dt>Outcome</dt>
+                            <dd>[ Real outcome — e.g. what changed for the client after launch ]</dd>
+                        </dl>
+                        <p class="meta">Role &amp; timeline: Product design, frontend, backend, payments · Built in 5 weeks</p>
+                    </article>
+
+                    <article class="case">
+                        <h3>[ Project name ]</h3>
+                        <dl>
+                            <dt>Problem</dt>
+                            <dd>[ What needed to change? ]</dd>
+                            <dt>Build</dt>
+                            <dd>[ What did you make? ]</dd>
+                            <dt>Outcome</dt>
+                            <dd>[ What happened after launch? ]</dd>
+                        </dl>
+                        <p class="meta">Role &amp; timeline: [ what you handled ] · [ how long it took ]</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ THE OFFER / PRICING ============ -->
+        <section id="pricing">
+            <div class="wrap">
+                <div class="offer-card">
+                    <p class="eyebrow">The offer</p>
+                    <div class="offer-head">
+                        <h2>The Product Sprint</h2>
+                        <span class="offer-price">from $3,500</span>
+                    </div>
+                    <p class="desc">
+                        A focused build for founders who need to put one core product in front of users.
+                    </p>
+                    <ul class="offer-list">
+                        <li>Product scope and launch plan</li>
+                        <li>Responsive web app for one core use case</li>
+                        <li>Essential integrations, such as sign-in or payments, where appropriate</li>
+                        <li>Deployment, handover, and 30 days of launch support</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Discuss your project</a>
+                    <p class="offer-fine">
+                        Typical delivery: 3–5 weeks, depending on scope. Final price and deliverables
+                        agreed in writing before work begins. Larger projects available as a separate path.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PROCESS ============ -->
+        <section id="process">
+            <div class="wrap">
+                <p class="eyebrow">Process</p>
+                <h2>Three steps, no surprises.</h2>
+                <p class="section-intro">A simple, predictable path from first conversation to a product in users' hands.</p>
+                <div class="steps">
+                    <div class="step">
+                        <span class="num">1</span>
+                        <h3>Scope it</h3>
+                        <p>Agree on users, core features, price, and timeline.</p>
+                    </div>
+                    <div class="step">
+                        <span class="num">2</span>
+                        <h3>Build it</h3>
+                        <p>Review working software regularly and resolve questions early.</p>
+                    </div>
+                    <div class="step">
+                        <span class="num">3</span>
+                        <h3>Launch it</h3>
+                        <p>Deploy, hand over the code and accounts, and plan next steps.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ WHY WORK WITH ME ============ -->
+        <section id="why">
+            <div class="wrap">
+                <p class="eyebrow">Why work with me</p>
+                <h2>What you can count on.</h2>
+                <p class="section-intro">Pick three specific, credible reasons. Suggested starting points below—edit to what's true for you.</p>
+                <div class="why-grid">
+                    <div class="why">
+                        <h3>Direct access</h3>
+                        <p>You work with the person building your product—no account managers, no handoffs.</p>
+                    </div>
+                    <div class="why">
+                        <h3>Written fixed scope</h3>
+                        <p>Scope, price, and timeline agreed in writing before work begins.</p>
+                    </div>
+                    <div class="why">
+                        <h3>Full code ownership</h3>
+                        <p>You own the code and accounts. Regular demos keep you in control throughout.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ ABOUT + TESTIMONIAL ============ -->
+        <section id="about">
+            <div class="wrap">
+                <p class="eyebrow">About</p>
+                <h2>Who you'd be working with.</h2>
+                <div class="about-grid">
+                    <div class="about">
+                        <p>[ Introduce yourself: your name, background, and the kind of products you build. ]</p>
+                        <p>[ Your relevant experience—years building, domains you know, technologies you reach for. ]</p>
+                        <p>[ How you work: communication cadence, where you add the most value, what clients can expect. ]</p>
+                    </div>
+                    <blockquote>
+                        <p>"[ A specific, attributable client quote. Keep it concrete—what you did and the difference it made. ]"</p>
+                        <footer>— [ Name, role, company ]</footer>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ FAQ ============ -->
+        <section id="faq">
+            <div class="wrap">
+                <p class="eyebrow">FAQ</p>
+                <h2>Questions, answered.</h2>
+                <div class="faq" style="max-width: 720px;">
+                    <details open>
+                        <summary>What kinds of projects are a good fit?</summary>
+                        <p>[ Describe the sweet spot: focused web apps with one clear core use case, founders validating an idea, replacing a manual workflow, etc. ]</p>
+                    </details>
+                    <details>
+                        <summary>How do you set the price?</summary>
+                        <p>[ Explain your approach: fixed scope agreed upfront, priced by the work involved rather than hourly, confirmed in writing before starting. ]</p>
+                    </details>
+                    <details>
+                        <summary>What happens if the scope changes?</summary>
+                        <p>[ Explain how changes are handled: discussed openly, re-scoped and re-quoted as a small change order, timeline adjusted transparently. ]</p>
+                    </details>
+                    <details>
+                        <summary>Who owns the code and accounts?</summary>
+                        <p>[ Confirm: you own all code and accounts, handed over in full at launch. ]</p>
+                    </details>
+                    <details>
+                        <summary>What support is available after launch?</summary>
+                        <p>[ Describe the 30 days of launch support, and options for ongoing work if wanted. ]</p>
+                    </details>
+                    <details>
+                        <summary>Can you work with an existing design or codebase?</summary>
+                        <p>[ Explain how you handle existing designs, repos, or partial builds. ]</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ FINAL CTA ============ -->
+        <section id="contact" class="final">
+            <div class="wrap">
+                <h2>Have a product idea or a workflow that needs fixing?</h2>
+                <p>
+                    Send a short description. I'll reply within one business day and let you
+                    know whether it looks like a fit.
+                </p>
+                <a href="mailto:hello@cassandrastudios.com?subject=Project%20enquiry" class="btn btn-primary">Tell me about your project</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <div class="wrap">
+            <span>© Cassandra Studios · 73 Bulgaria blvd., Sofia, Bulgaria · VAT BG206817882</span>
+            <a href="mailto:hello@cassandrastudios.com">hello@cassandrastudios.com</a>
+        </div>
+    </footer>
+
+</body>
+</html>
